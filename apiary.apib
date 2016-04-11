@@ -1,86 +1,80 @@
 FORMAT: 1A
+HOST: http://polls.apiblueprint.org/
 
-# HAL Model  ccXXXXXX
+# Polls API
 
-[HAL Specification](https://tools.ietf.org/html/draft-kelly-json-hal-07): `draft-kelly-json-hal-07`
+Polls is a simple API allowing consumers to view polls and vote in them.
 
-# List of Orders [/orders]
-## Retieve [GET]
-- Response 200
-    - Attributes (List of Orders)
+## Questions Collection [/questions]
 
+### List All Questions [GET]
 
-# Data Structures
++ Response 200 (application/json)
 
-## HAL Resource Base (object)
+        [
+            {
+                "question": "Favourite programming language?",
+                "published_at": "2015-08-05T08:40:51.620Z",
+                "choices": [
+                    {
+                        "choice": "Swift",
+                        "votes": 2048
+                    }, {
+                        "choice": "Python",
+                        "votes": 1024
+                    }, {
+                        "choice": "Objective-C",
+                        "votes": 512
+                    }, {
+                        "choice": "Ruby",
+                        "votes": 256
+                    }
+                ]
+            }
+        ]
 
-Abstract base object. Not to be used directly. See `HAL Resource`.
+### Create a New Question [POST]
 
-## HAL Resource (HAL Resource Base)
+You may create your own question using this action. It takes a JSON
+object containing a question and a collection of answers in the
+form of choices.
 
-HAL Specification: [Resource Object](https://tools.ietf.org/html/draft-kelly-json-hal-07#section-4)
++ Request (application/json)
 
-### Properties
-- `_links`
-    - *relation* (Link)
+        {
+            "question": "Favourite programming language?",
+            "choices": [
+                "Swift",
+                "Python",
+                "Objective-C",
+                "Ruby"
+            ]
+        }
 
-- `_embedded`
-    - *relation* (Embedded)
++ Response 201 (application/json)
 
-## Embedded (enum)
+    + Headers
 
-HAL Specification:  [`_embedded` property value](https://tools.ietf.org/html/draft-kelly-json-hal-07#section-4.1.2)
+            Location: /questions/2
 
-The value is either a descendant of `HAL Resource Base` or an array of its descendats.
+    + Body
 
-### Members
-- (HAL Resource Base)
-- (array[HAL Resource Base])
-
-## Link (object)
-
-HAL Specification: [Link Object](https://tools.ietf.org/html/draft-kelly-json-hal-07#section-5)
-
-### Properties
-- href (required)
-- templated (boolean)
-- type
-- deprecation
-- name
-- profile
-- title
-- hreflang
-
-
-## List of Orders (HAL Resource)
-
-HAL Specification: [Example Document](https://tools.ietf.org/html/draft-kelly-json-hal-07#section-6)
-
-### Properties
-- `_links`
-    - self (Link)
-    - next (Link)
-    - find (Link)
-
-- `_embedded`
-    - orders (array[Order])
-
-- currentlyProcessing: 14 (number)
-- shippedToday: 20 (number)
-
-
-## Order (HAL Resource)
-- `_links`
-    - self (Link)
-    - basket (Link)
-    - customer (Link)
-
-- total (number)
-    - Sample: 30
-    - Sample: 20
-
-- currency: USD (string)
-
-- status (enum)
-    - processing
-    - shipped
+            {
+                "question": "Favourite programming language?",
+                "published_at": "2015-08-05T08:40:51.620Z",
+                "choices": [
+                    {
+                        "choice": "Swift",
+                        "votes": 0
+                    }, {
+                        "choice": "Python",
+                        "votes": 0
+                    }, {
+                        "choice": "Objective-C",
+                        "votes": 0
+                    }, {
+                        "choice": "Ruby",
+                        "votes": 0
+                    }
+                ]
+            }
