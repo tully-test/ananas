@@ -1,0 +1,39 @@
+FORMAT: 1A
+
+# Checklist API
+
+In Engineering we deliver features. A feature can’t be called completed unless it has all following attributes:
+
+- https://docs.apiary-internal.com/content/engineering/completion.html
+
+
+## Authentication
+
+We use JWT tokens issued by Kotbod.
+
+## Trello Column [/trello/{board_id}/{column_name}]
+
+- [Trello documentation about create checklist](https://developers.trello.com/advanced-reference/checklist#post-1-checklists)
+- [Trello documentation about create checklist items](https://developers.trello.com/advanced-reference/checklist#post-1-checklists-idchecklist-checkitems)
+
+### Add checklist to all cards in the given column [PUT]
+
++ Request (application/json)
+
+    + Attributes (Checklist)
+
++ Response 201 (application/json)
+
+## Data Structures
+
+# Checklist
+
+- name: Name of the new checklist (required, string)
+- templateCard: `https://trello.com/cardId` (required, string)
+- trelloToken: 5cd3f225d602413d8cb96ad7a9719137 (required, string)
+- options (required, object)
+    - One Of
+        - card: `https://trello.com/c/cardId` (string)
+        - Properties
+            - board: `https://trello.com/b/boardId` (string)
+            - column: name of column in Trello (string)
