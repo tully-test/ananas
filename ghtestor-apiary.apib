@@ -1,0 +1,148 @@
+FORMAT: 1A
+
+HOST: https://admin-api-staging.mobiliti.com/
+
+# mobiliti-admin-api
+
+The Mobiliti Admin API is a private API consumable by the Mobiliti iOS, Android, and Web apps.
+
+Even though the admin API is private, measures have been put in place
+to ensure the API is more secured.
+
+**App Authorization:**
+App level authorization, the first layer of authorization, is performed by
+passing a pre-generated aws token in an `X-Api-Key` header:`X-Api-Key: {AWS_TOKEN}`.
+All requests to the Admin API require this level of authorization. You can
+get the aws pre-generated token [**here**]().
+Alternatively, you can reach out to the admin-api admin for the token.
+
+
+## Transactions [/transactions]
+### Get Transactions [GET /transactions{?subscription_id}]
+Returns a list of transactions. Search can be filtered using a search parameter like subscription_id
+
+Replaces:
+
+- `api/TransactionAPI/GetTransactions`
+
++ Parameters
+    + subscription_id: `71` (optional, string) - The ID of the subscription or search parameter
+
++ Response 200 (application/json)
+
+    + Attributes (Success)
+        - data (array[Transactions])
+
++ Response 400 (application/json)
+
+    + Attributes (Client Error)
+
++ Response 500 (application/json)
+
+    + Attributes (Server Error)
+
+### Get Transaction [GET /transactions/{transaction_id}]
+Returns details of a transaction.
+
+Replaces:
+
+- `api/TransactionAPI/GetTransaction?transactionID={transaction_id}`
+
++ Parameters
+    + transaction_id: `124` (string, required) - The ID of the transaction
+
++ Response 200 (application/json)
+
+    + Attributes (Success)
+        - data (array[Transaction])
+
++ Response 400 (application/json)
+
+    + Attributes (Client Error)
+
++ Response 500 (application/json)
+
+    + Attributes (Server Error)
+
+# Data Structures
+
+## Success
+
+- status: success (string)
+
+## Client Error
+
+- status: fail (string)
+- code: INVALID_XX_ID (string)
+- message: Invalid XX ID (string)
+
+## Server Error
+
+- status: error (string)
+- code: DATABASE_TIMEOUT (string)
+- message: connection to database timed out (string)
+
+## Transactions
+- transaction_id: 124 (string)
+- subscriber_id: 5 (string)
+- first_name: Edudzi (string)
+- last_name: Korku (string)
+- full_name: Edudzi Korku (string)
+- email: dev@mobiliti.com (string)
+- reservation_id: 68BN8 (string)
+- subscription_id: 68BN8 (string)
+- dealer_id: 578B78 (string)
+- vehicle_id: 097HJ8 (string)
+- vehicle_name: 2018 Toyota C-HR SUV (string)
+- dealer_name: Toyota of Las Vegas (string)
+- payment_date: 2018-08-10T21:23:02.673  (string)
+- payment_status: Completed (string)
+- transaction_type: credit (string)
+- remarks: Paid for reservation of vehicle 2018 Toyota C-HR SUV (string)
+- subscription: null (string)
+
+## Subscription
+- reservation_id: 71 (string)
+- subscription_id: 71 (string)
+- subscriber_id: 5 (string)
+- vin: NMTKHMBX6JR050790 (string)
+- vehicle_name: 2018 Toyota C-HR SUV (string)
+- dealer_name: Toyota of Las Vegas (string)
+- subscription_start_date: 2018-09-08T00:00:00 (string)
+- subscription_end_date: 2018-10-08T00:00:00 (string)
+- dealer_acquisition_cost: 24192 (number)
+- dealer_floorplan_rate: 3 (number)
+- floorplan_offset: 60.48 (number)
+- selected_mileage: 1200 (number)
+- pmdr: 0.7 (number)
+- depreciation_offset: 840 (number)
+- mobiliti_fee: 100 (number)
+- dealer_profit: 150 (number)
+- reconditioning: 75 (number)
+- sales_tax: 73.53 (number)
+- insurance: 115 (number)
+- insurance_tax: 5.75 (number)
+- subscription_total: 1419.76 (number)
+- paid_amount: 1419.76 (number)
+- credit_amount: 0 (number)
+- refunded_amount: 1419.76 (number)
+
+## Transaction
+- transaction_id: 124 (string)
+- subscriber_id: 5 (string)
+- first_name: Edudzi (string)
+- last_name: Korku (string)
+- full_name: Edudzi Korku (string)
+- email: dev@mobiliti.com (string)
+- reservation_id: 71 (string)
+- subscription_id: 71 (string)
+- dealer_id: 6 (string)
+- vehicle_id: 75 (string)
+- vehicle_name: 2018 Toyota C-HR SUV (string)
+- dealer_name: Toyota of Las Vegas (string)
+- payment_date: 2018-08-10T21:23:02.673 (string)
+- payment_status: Completed (string)
+- transaction_type: Credit (string)
+- remarks: Paid for reservation of vehicle 2018 Toyota C-HR SUV (string)
+- amount: 1419.76 (number)
+- subscription (Subscription)
