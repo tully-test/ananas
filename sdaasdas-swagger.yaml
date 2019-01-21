@@ -1,0 +1,694 @@
+--- 
+basePath: /assetMonitoring/clientapi
+paths: 
+  /v2/places/{place-name}/assets: 
+    get: 
+      summary: Retrieve a list of assets by place-name
+      produces: 
+      - application/json
+      - application/vnd.oracle.resource+json;type=collection
+      description: "This operation returns the list of assets existing in the given place name.<div class=examples><!DOCTYPE html><div class=&quot;section&quot;> <pre class=&quot;pre&quot;>curl -X GET <br />&nbsp;&nbsp;&nbsp;-u &lt;username&gt;:&lt;password&gt; <br />&nbsp;&nbsp;&nbsp;-H &apos;Accept: application/json&apos; <br />&nbsp;&nbsp;&nbsp;https://iotserver/assetMonitoring/clientapi/v2/places/{place-name}/assets </pre></div> <br /><div class=&quot;section&quot;> <h3 class=&quot;title sectiontitle&quot;>Example of Response Body</h3> <p class=&quot;p&quot;>The following example shows the content of the response body in JSON format&#58</p> <pre class=&quot;pre&quot;><br />{<br />    &quot;offset&quot;:0,<br />    &quot;count&quot;:2,<br />    &quot;limit&quot;:10,<br />    &quot;hasMore&quot;:false,<br />    &quot;links&quot;:[<br />        {<br />            &quot;rel&quot;:&quot;self&quot;,<br />            &quot;href&quot;:&quot;https://iotserver/assetMonitoring/clientapi/version/resource/path&quot;<br />        },<br />        {<br />            &quot;rel&quot;:&quot;canonical&quot;,<br />            &quot;href&quot;:&quot;https://iotserver/assetMonitoring/clientapi/version/resource/path&quot;<br />        }<br />    ],<br />    &quot;items&quot;:[<br />        {<br />            &quot;name&quot;:&quot;The asset name &quot;<br />        },<br />        {<br />            &quot;name&quot;:&quot;The asset name &quot;<br />        }<br />    ]<br />} </pre></div><br /><br /><br /><div class=&quot;section&quot;> <h3 class=&quot;title sectiontitle&quot;>Complete cURL Example</h3> <p class=&quot;p&quot;>The following example shows a complete cURL command that you can use to perform the described operation&#58</p> <pre class=&quot;pre&quot;>curl -X GET <br />&nbsp;&nbsp;&nbsp;-u &lt;username&gt;:&lt;password&gt; <br />&nbsp;&nbsp;&nbsp;-H &apos;Accept: application/json&apos; <br />&nbsp;&nbsp;&nbsp;https://iotserver/assetMonitoring/clientapi/v2/places/{place-name}/assets </pre></div><div class=&quot;section&quot;> <br /><br /><br />Note that in the request, <code><strong>https://iotserver</strong></code> will be replaced by the name and port of your assigned IoT Cloud Service instance. The format of the Cloud Service instance is <code><strong>https://myinstance-myidentitydomain.iot.us.oraclecloud.com</strong></code> and the default port is 443.</div></div><div class=examples><!DOCTYPE html><div class=&quot;section&quot;> <pre class=&quot;pre&quot;>curl -X GET <br />&nbsp;&nbsp;&nbsp;-u &lt;username&gt;:&lt;password&gt; <br />&nbsp;&nbsp;&nbsp;-H &apos;Accept: application/json&apos; <br />&nbsp;&nbsp;&nbsp;https://iotserver/assetMonitoring/clientapi/v2/places/{place-name}/assets </pre></div> <br /><div class=&quot;section&quot;> <h3 class=&quot;title sectiontitle&quot;>Example of Response Body</h3> <p class=&quot;p&quot;>The following example shows the content of the response body in JSON format&#58</p> <pre class=&quot;pre&quot;><br />{<br />    &quot;offset&quot;:0,<br />    &quot;count&quot;:2,<br />    &quot;limit&quot;:10,<br />    &quot;hasMore&quot;:false,<br />    &quot;links&quot;:[<br />        {<br />            &quot;rel&quot;:&quot;self&quot;,<br />            &quot;href&quot;:&quot;https://iotserver/assetMonitoring/clientapi/version/resource/path&quot;<br />        },<br />        {<br />            &quot;rel&quot;:&quot;canonical&quot;,<br />            &quot;href&quot;:&quot;https://iotserver/assetMonitoring/clientapi/version/resource/path&quot;<br />        }<br />    ],<br />    &quot;items&quot;:[<br />        {<br />            &quot;name&quot;:&quot;The asset name &quot;<br />        },<br />        {<br />            &quot;name&quot;:&quot;The asset name &quot;<br />        }<br />    ]<br />} </pre></div><br /><br /><br /><div class=&quot;section&quot;> <h3 class=&quot;title sectiontitle&quot;>Complete cURL Example</h3> <p class=&quot;p&quot;>The following example shows a complete cURL command that you can use to perform the described operation&#58</p> <pre class=&quot;pre&quot;>curl -X GET <br />&nbsp;&nbsp;&nbsp;-u &lt;username&gt;:&lt;password&gt; <br />&nbsp;&nbsp;&nbsp;-H &apos;Accept: application/json&apos; <br />&nbsp;&nbsp;&nbsp;https://iotserver/assetMonitoring/clientapi/v2/places/{place-name}/assets </pre></div><div class=&quot;section&quot;> <br /><br /><br />Note that in the request, <code><strong>https://iotserver</strong></code> will be replaced by the name and port of your assigned IoT Cloud Service instance. The format of the Cloud Service instance is <code><strong>https://myinstance-myidentitydomain.iot.us.oraclecloud.com</strong></code> and the default port is 443.</div></div>"
+      responses: 
+        "200": 
+          schema: 
+            $ref: "#/definitions/AssetRef_receive_list"
+          description: Successfully processed.
+        "401": 
+          description: Unauthorized. The request requires user authentication.
+        "406": 
+          description: Request Not Acceptable. The resource identified by the request is only capable of generating response entities which have content characteristics not acceptable according to the accept headers sent in the request.
+      parameters: 
+      - in: path
+        name: place-name
+        description: Id of the place
+        type: string
+        required: true
+      - in: query
+        name: includeChildren
+        description: Parameter defining shall are assets placed in the child places included or not
+        type: boolean
+        required: false
+      - in: query
+        name: orderBy
+        description: Ordering criteria for the returned Places list
+        type: string
+        required: false
+      - in: query
+        name: q
+        description: Query to filter Places on the server (For more information on mongoDB query parameters refer to <a href='./MongoDBQuery.html' target='_blank'>Using mongoDB Query Syntax</a>.)
+        type: string
+        required: false
+      - in: query
+        name: expand
+        description: The list of fields to be expanded in the result. Use 'all' to expand all expandable fields in result.
+        type: string
+        required: false
+      - in: query
+        name: fields
+        description: The comma-separated list of fields to be shown in response. By default all response object fields will be present.
+        type: string
+        required: false
+      - in: query
+        name: offset
+        description: The number that the first record of results is starting from.
+        type: integer
+        required: false
+      - in: query
+        name: limit
+        description: The maximum number of entries to return to the end user.
+        type: integer
+        required: false
+      - in: query
+        name: totalResults
+        description: The total number of results suiting the request.
+        type: boolean
+        required: false
+      - in: query
+        name: since
+        description: The starting point of the desired time interval, in milliseconds. The default is 0.
+        type: integer
+        required: false
+      - in: query
+        name: until
+        description: The finishing point of the desired time interval, in milliseconds. The default is 0.
+        type: integer
+        required: false
+  /v2/places: 
+    post: 
+      summary: Create place
+      produces: 
+      - application/json
+      - application/vnd.oracle.resource+json;type=singular
+      description: "This operation creates a new place in the Oracle IoT Asset Monitoring Cloud Service instance.<div class=examples><!DOCTYPE html><div class=&quot;section&quot;> <pre class=&quot;pre&quot;>curl -X POST <br />&nbsp;&nbsp;&nbsp;-u &lt;username&gt;:&lt;password&gt; <br />&nbsp;&nbsp;&nbsp;-H &apos;Accept: application/json&apos; <br />&nbsp;&nbsp;&nbsp;-H &apos;Content-Type: application/json&apos; <br />&nbsp;&nbsp;&nbsp;https://iotserver/assetMonitoring/clientapi/v2/places </pre></div> <br /><div class=&quot;section&quot;> <h3 class=&quot;title sectiontitle&quot;>Example of Request Body</h3> <p class=&quot;p&quot;>The following example shows the content of the request body in JSON format&#58</p> <pre><br />{<br />    &quot;parent&quot;:&quot;References to a place containing the place&quot;,<br />    &quot;children&quot;:[<br />        {<br />            &quot;parent&quot;:&quot;References to a place containing the place&quot;,<br />            &quot;name&quot;:&quot;The place name &quot;,<br />            &quot;description&quot;:&quot;A human friendly description&quot;,<br />            &quot;geoFences&quot;:[<br />                &quot;geoFences_1&quot;,<br />                &quot;geoFences_2&quot;,<br />                &quot;geoFences_3&quot;<br />            ],<br />            &quot;id&quot;:&quot;62c851cb6431-2637&quot;,<br />            &quot;type&quot;:&quot;Type of the place, e.g. GEO_ROUTE, GEO_CIRCLE, GEO_POLYGON, GEO_POINT, CITY, STATE, COUNTRY etc. Can be null.&quot;,<br />            &quot;tags&quot;:[<br />                &quot;tags_1&quot;,<br />                &quot;tags_2&quot;,<br />                &quot;tags_3&quot;<br />            ]<br />        }<br />    ],<br />    &quot;name&quot;:&quot;The place name &quot;,<br />    &quot;description&quot;:&quot;A human friendly description&quot;,<br />    &quot;geoFences&quot;:[<br />        &quot;geoFences_1&quot;,<br />        &quot;geoFences_2&quot;,<br />        &quot;geoFences_3&quot;<br />    ],<br />    &quot;id&quot;:&quot;5b323e581016-6630&quot;,<br />    &quot;type&quot;:&quot;Type of the place, e.g. GEO_ROUTE, GEO_CIRCLE, GEO_POLYGON, GEO_POINT, CITY, STATE, COUNTRY etc. Can be null.&quot;,<br />    &quot;tags&quot;:[<br />        &quot;tags_1&quot;,<br />        &quot;tags_2&quot;,<br />        &quot;tags_3&quot;<br />    ]<br />} </pre></div><div class=&quot;section&quot;> <h3 class=&quot;title sectiontitle&quot;>Example of Response Body</h3> <p class=&quot;p&quot;>The following example shows the content of the response body in JSON format&#58</p> <pre class=&quot;pre&quot;><br />{<br />    &quot;parent&quot;:&quot;References to a place containing the place&quot;,<br />    &quot;places&quot;:{<br />        &quot;links&quot;:[<br />            {<br />                &quot;rel&quot;:&quot;self&quot;,<br />                &quot;href&quot;:&quot;https://iotserver/assetMonitoring/clientapi/version/resource/path&quot;<br />            },<br />            {<br />                &quot;rel&quot;:&quot;canonical&quot;,<br />                &quot;href&quot;:&quot;https://iotserver/assetMonitoring/clientapi/version/resource/path&quot;<br />            }<br />        ]<br />    },<br />    &quot;name&quot;:&quot;The place name &quot;,<br />    &quot;description&quot;:&quot;A human friendly description&quot;,<br />    &quot;geoFences&quot;:[<br />        &quot;geoFences_1&quot;,<br />        &quot;geoFences_2&quot;,<br />        &quot;geoFences_3&quot;<br />    ],<br />    &quot;id&quot;:&quot;5dbc64872d0b-6819&quot;,<br />    &quot;type&quot;:&quot;Type of the place, e.g. GEO_ROUTE, GEO_CIRCLE, GEO_POLYGON, GEO_POINT, CITY, STATE, COUNTRY etc. Can be null.&quot;,<br />    &quot;floorplan&quot;:{<br />        &quot;image&quot;:{<br />            &quot;links&quot;:[<br />                {<br />                    &quot;rel&quot;:&quot;self&quot;,<br />                    &quot;href&quot;:&quot;https://iotserver/assetMonitoring/clientapi/version/resource/path&quot;<br />                },<br />                {<br />                    &quot;rel&quot;:&quot;canonical&quot;,<br />                    &quot;href&quot;:&quot;https://iotserver/assetMonitoring/clientapi/version/resource/path&quot;<br />                }<br />            ]<br />        },<br />        &quot;name&quot;:&quot;Floor plan name&quot;,<br />        &quot;description&quot;:&quot;A human friendly description&quot;,<br />        &quot;referencePoints&quot;:{<br />            &quot;mapP1&quot;:&quot;Geographic coordinates of the first point&quot;,<br />            &quot;mapP2&quot;:&quot;Geographic coordinates of the second point&quot;,<br />            &quot;imageP2&quot;:&quot;Coordinates of the second point on image&quot;,<br />            &quot;imageP1&quot;:&quot;Coordinates of the first point on image&quot;<br />        },<br />        &quot;id&quot;:&quot;11d513193f4a-844&quot;<br />    },<br />    &quot;tags&quot;:[<br />        &quot;tags_1&quot;,<br />        &quot;tags_2&quot;,<br />        &quot;tags_3&quot;<br />    ]<br />} </pre></div><br /><br /><br /><div class=&quot;section&quot;> <h3 class=&quot;title sectiontitle&quot;>Complete cURL Example</h3> <p class=&quot;p&quot;>The following example shows a complete cURL command that you can use to perform the described operation&#58</p> <pre class=&quot;pre&quot;>curl -X POST <br />&nbsp;&nbsp;&nbsp;-u &lt;username&gt;:&lt;password&gt; <br />&nbsp;&nbsp;&nbsp;-H &apos;Accept: application/json&apos; <br />&nbsp;&nbsp;&nbsp;-H &apos;Content-Type: application/json&apos;  <br />&nbsp;&nbsp;&nbsp;-d &apos;{&quot;parent&quot;:&quot;References to a place containing the place&quot;,&quot;children&quot;:[{&quot;parent&quot;:&quot;References to a place containing the place&quot;,&quot;name&quot;:&quot;The place name &quot;,&quot;description&quot;:&quot;A human friendly description&quot;,&quot;geoFences&quot;:[&quot;geoFences_1&quot;,&quot;geoFences_2&quot;,&quot;geoFences_3&quot;],&quot;id&quot;:&quot;62c851cb6431-2637&quot;,&quot;type&quot;:&quot;Type of the place, e.g. GEO_ROUTE, GEO_CIRCLE, GEO_POLYGON, GEO_POINT, CITY, STATE, COUNTRY etc. Can be null.&quot;,&quot;tags&quot;:[&quot;tags_1&quot;,&quot;tags_2&quot;,&quot;tags_3&quot;]}],&quot;name&quot;:&quot;The place name &quot;,&quot;description&quot;:&quot;A human friendly description&quot;,&quot;geoFences&quot;:[&quot;geoFences_1&quot;,&quot;geoFences_2&quot;,&quot;geoFences_3&quot;],&quot;id&quot;:&quot;5b323e581016-6630&quot;,&quot;type&quot;:&quot;Type of the place, e.g. GEO_ROUTE, GEO_CIRCLE, GEO_POLYGON, GEO_POINT, CITY, STATE, COUNTRY etc. Can be null.&quot;,&quot;tags&quot;:[&quot;tags_1&quot;,&quot;tags_2&quot;,&quot;tags_3&quot;]}&apos;<br />&nbsp;&nbsp;&nbsp;https://iotserver/assetMonitoring/clientapi/v2/places </pre></div><div class=&quot;section&quot;> <br /><br /><br />Note that in the request, <code><strong>https://iotserver</strong></code> will be replaced by the name and port of your assigned IoT Cloud Service instance. The format of the Cloud Service instance is <code><strong>https://myinstance-myidentitydomain.iot.us.oraclecloud.com</strong></code> and the default port is 443.</div></div><div class=examples><!DOCTYPE html><div class=&quot;section&quot;> <pre class=&quot;pre&quot;>curl -X POST <br />&nbsp;&nbsp;&nbsp;-u &lt;username&gt;:&lt;password&gt; <br />&nbsp;&nbsp;&nbsp;-H &apos;Accept: application/json&apos; <br />&nbsp;&nbsp;&nbsp;-H &apos;Content-Type: application/json&apos; <br />&nbsp;&nbsp;&nbsp;https://iotserver/assetMonitoring/clientapi/v2/places </pre></div> <br /><div class=&quot;section&quot;> <h3 class=&quot;title sectiontitle&quot;>Example of Request Body</h3> <p class=&quot;p&quot;>The following example shows the content of the request body in JSON format&#58</p> <pre><br />{<br />    &quot;parent&quot;:&quot;References to a place containing the place&quot;,<br />    &quot;children&quot;:[<br />        {<br />            &quot;parent&quot;:&quot;References to a place containing the place&quot;,<br />            &quot;name&quot;:&quot;The place name &quot;,<br />            &quot;description&quot;:&quot;A human friendly description&quot;,<br />            &quot;geoFences&quot;:[<br />                &quot;geoFences_1&quot;,<br />                &quot;geoFences_2&quot;,<br />                &quot;geoFences_3&quot;<br />            ],<br />            &quot;id&quot;:&quot;63f843bc597b-4085&quot;,<br />            &quot;type&quot;:&quot;Type of the place, e.g. GEO_ROUTE, GEO_CIRCLE, GEO_POLYGON, GEO_POINT, CITY, STATE, COUNTRY etc. Can be null.&quot;,<br />            &quot;tags&quot;:[<br />                &quot;tags_1&quot;,<br />                &quot;tags_2&quot;,<br />                &quot;tags_3&quot;<br />            ]<br />        }<br />    ],<br />    &quot;name&quot;:&quot;The place name &quot;,<br />    &quot;description&quot;:&quot;A human friendly description&quot;,<br />    &quot;geoFences&quot;:[<br />        &quot;geoFences_1&quot;,<br />        &quot;geoFences_2&quot;,<br />        &quot;geoFences_3&quot;<br />    ],<br />    &quot;id&quot;:&quot;214e434b75a7-15a1&quot;,<br />    &quot;type&quot;:&quot;Type of the place, e.g. GEO_ROUTE, GEO_CIRCLE, GEO_POLYGON, GEO_POINT, CITY, STATE, COUNTRY etc. Can be null.&quot;,<br />    &quot;tags&quot;:[<br />        &quot;tags_1&quot;,<br />        &quot;tags_2&quot;,<br />        &quot;tags_3&quot;<br />    ]<br />} </pre></div><div class=&quot;section&quot;> <h3 class=&quot;title sectiontitle&quot;>Example of Response Body</h3> <p class=&quot;p&quot;>The following example shows the content of the response body in JSON format&#58</p> <pre class=&quot;pre&quot;><br />{<br />    &quot;parent&quot;:&quot;References to a place containing the place&quot;,<br />    &quot;places&quot;:{<br />        &quot;links&quot;:[<br />            {<br />                &quot;rel&quot;:&quot;self&quot;,<br />                &quot;href&quot;:&quot;https://iotserver/assetMonitoring/clientapi/version/resource/path&quot;<br />            },<br />            {<br />                &quot;rel&quot;:&quot;canonical&quot;,<br />                &quot;href&quot;:&quot;https://iotserver/assetMonitoring/clientapi/version/resource/path&quot;<br />            }<br />        ]<br />    },<br />    &quot;name&quot;:&quot;The place name &quot;,<br />    &quot;description&quot;:&quot;A human friendly description&quot;,<br />    &quot;geoFences&quot;:[<br />        &quot;geoFences_1&quot;,<br />        &quot;geoFences_2&quot;,<br />        &quot;geoFences_3&quot;<br />    ],<br />    &quot;id&quot;:&quot;220d70985bb5-15f0&quot;,<br />    &quot;type&quot;:&quot;Type of the place, e.g. GEO_ROUTE, GEO_CIRCLE, GEO_POLYGON, GEO_POINT, CITY, STATE, COUNTRY etc. Can be null.&quot;,<br />    &quot;floorplan&quot;:{<br />        &quot;image&quot;:{<br />            &quot;links&quot;:[<br />                {<br />                    &quot;rel&quot;:&quot;self&quot;,<br />                    &quot;href&quot;:&quot;https://iotserver/assetMonitoring/clientapi/version/resource/path&quot;<br />                },<br />                {<br />                    &quot;rel&quot;:&quot;canonical&quot;,<br />                    &quot;href&quot;:&quot;https://iotserver/assetMonitoring/clientapi/version/resource/path&quot;<br />                }<br />            ]<br />        },<br />        &quot;name&quot;:&quot;Floor plan name&quot;,<br />        &quot;description&quot;:&quot;A human friendly description&quot;,<br />        &quot;referencePoints&quot;:{<br />            &quot;mapP1&quot;:&quot;Geographic coordinates of the first point&quot;,<br />            &quot;mapP2&quot;:&quot;Geographic coordinates of the second point&quot;,<br />            &quot;imageP2&quot;:&quot;Coordinates of the second point on image&quot;,<br />            &quot;imageP1&quot;:&quot;Coordinates of the first point on image&quot;<br />        },<br />        &quot;id&quot;:&quot;12dd6d6c4a22-6873&quot;<br />    },<br />    &quot;tags&quot;:[<br />        &quot;tags_1&quot;,<br />        &quot;tags_2&quot;,<br />        &quot;tags_3&quot;<br />    ]<br />} </pre></div><br /><br /><br /><div class=&quot;section&quot;> <h3 class=&quot;title sectiontitle&quot;>Complete cURL Example</h3> <p class=&quot;p&quot;>The following example shows a complete cURL command that you can use to perform the described operation&#58</p> <pre class=&quot;pre&quot;>curl -X POST <br />&nbsp;&nbsp;&nbsp;-u &lt;username&gt;:&lt;password&gt; <br />&nbsp;&nbsp;&nbsp;-H &apos;Accept: application/json&apos; <br />&nbsp;&nbsp;&nbsp;-H &apos;Content-Type: application/json&apos;  <br />&nbsp;&nbsp;&nbsp;-d &apos;{&quot;parent&quot;:&quot;References to a place containing the place&quot;,&quot;children&quot;:[{&quot;parent&quot;:&quot;References to a place containing the place&quot;,&quot;name&quot;:&quot;The place name &quot;,&quot;description&quot;:&quot;A human friendly description&quot;,&quot;geoFences&quot;:[&quot;geoFences_1&quot;,&quot;geoFences_2&quot;,&quot;geoFences_3&quot;],&quot;id&quot;:&quot;63f843bc597b-4085&quot;,&quot;type&quot;:&quot;Type of the place, e.g. GEO_ROUTE, GEO_CIRCLE, GEO_POLYGON, GEO_POINT, CITY, STATE, COUNTRY etc. Can be null.&quot;,&quot;tags&quot;:[&quot;tags_1&quot;,&quot;tags_2&quot;,&quot;tags_3&quot;]}],&quot;name&quot;:&quot;The place name &quot;,&quot;description&quot;:&quot;A human friendly description&quot;,&quot;geoFences&quot;:[&quot;geoFences_1&quot;,&quot;geoFences_2&quot;,&quot;geoFences_3&quot;],&quot;id&quot;:&quot;214e434b75a7-15a1&quot;,&quot;type&quot;:&quot;Type of the place, e.g. GEO_ROUTE, GEO_CIRCLE, GEO_POLYGON, GEO_POINT, CITY, STATE, COUNTRY etc. Can be null.&quot;,&quot;tags&quot;:[&quot;tags_1&quot;,&quot;tags_2&quot;,&quot;tags_3&quot;]}&apos;<br />&nbsp;&nbsp;&nbsp;https://iotserver/assetMonitoring/clientapi/v2/places </pre></div><div class=&quot;section&quot;> <br /><br /><br />Note that in the request, <code><strong>https://iotserver</strong></code> will be replaced by the name and port of your assigned IoT Cloud Service instance. The format of the Cloud Service instance is <code><strong>https://myinstance-myidentitydomain.iot.us.oraclecloud.com</strong></code> and the default port is 443.</div></div>"
+      responses: 
+        "202": 
+          description: Successfully processed.
+        "400": 
+          description: Bad Request. The request could not be understood by the server due to malformed syntax. The client SHOULD NOT repeat the request without modifications.
+        "401": 
+          description: Unauthorized. The request requires user authentication.
+        "403": 
+          description: Forbidden. The server understood the request, but is refusing to fulfill it. Authorization will not help and the request SHOULD NOT be repeated.
+        "415": 
+          description: Unsupported Media Type. The request entity has a media type which the server or resource does not support.
+        "406": 
+          description: Request Not Acceptable. The resource identified by the request is only capable of generating response entities which have content characteristics not acceptable according to the accept headers sent in the request.
+      parameters: 
+      - schema: 
+          $ref: "#/definitions/PlaceImpl_create"
+        in: body
+        name: body
+        description: ""
+        required: true
+      consumes: 
+      - application/json
+    get: 
+      summary: Retrieve a list of places
+      produces: 
+      - application/json
+      - application/vnd.oracle.resource+json;type=collection
+      description: "This operation returns the list of places created for your Oracle IoT Asset Monitoring Cloud Service instance.<div class=examples><!DOCTYPE html><div class=&quot;section&quot;> <pre class=&quot;pre&quot;>curl -X GET <br />&nbsp;&nbsp;&nbsp;-u &lt;username&gt;:&lt;password&gt; <br />&nbsp;&nbsp;&nbsp;-H &apos;Accept: application/json&apos; <br />&nbsp;&nbsp;&nbsp;https://iotserver/assetMonitoring/clientapi/v2/places </pre></div> <br /><div class=&quot;section&quot;> <h3 class=&quot;title sectiontitle&quot;>Example of Response Body</h3> <p class=&quot;p&quot;>The following example shows the content of the response body in JSON format&#58</p> <pre class=&quot;pre&quot;><br />{<br />    &quot;offset&quot;:0,<br />    &quot;count&quot;:2,<br />    &quot;limit&quot;:10,<br />    &quot;hasMore&quot;:false,<br />    &quot;links&quot;:[<br />        {<br />            &quot;rel&quot;:&quot;self&quot;,<br />            &quot;href&quot;:&quot;https://iotserver/assetMonitoring/clientapi/version/resource/path&quot;<br />        },<br />        {<br />            &quot;rel&quot;:&quot;canonical&quot;,<br />            &quot;href&quot;:&quot;https://iotserver/assetMonitoring/clientapi/version/resource/path&quot;<br />        }<br />    ],<br />    &quot;items&quot;:[<br />        {<br />            &quot;parent&quot;:&quot;References to a place containing the place&quot;,<br />            &quot;places&quot;:{<br />                &quot;links&quot;:[<br />                    {<br />                        &quot;rel&quot;:&quot;self&quot;,<br />                        &quot;href&quot;:&quot;https://iotserver/assetMonitoring/clientapi/version/resource/path&quot;<br />                    },<br />                    {<br />                        &quot;rel&quot;:&quot;canonical&quot;,<br />                        &quot;href&quot;:&quot;https://iotserver/assetMonitoring/clientapi/version/resource/path&quot;<br />                    }<br />                ]<br />            },<br />            &quot;name&quot;:&quot;The place name &quot;,<br />            &quot;description&quot;:&quot;A human friendly description&quot;,<br />            &quot;geoFences&quot;:[<br />                &quot;geoFences_1&quot;,<br />                &quot;geoFences_2&quot;,<br />                &quot;geoFences_3&quot;<br />            ],<br />            &quot;id&quot;:&quot;46756d651172-4984&quot;,<br />            &quot;type&quot;:&quot;Type of the place, e.g. GEO_ROUTE, GEO_CIRCLE, GEO_POLYGON, GEO_POINT, CITY, STATE, COUNTRY etc. Can be null.&quot;,<br />            &quot;floorplan&quot;:{<br />                &quot;image&quot;:{<br />                    &quot;links&quot;:[<br />                        {<br />                            &quot;rel&quot;:&quot;self&quot;,<br />                            &quot;href&quot;:&quot;https://iotserver/assetMonitoring/clientapi/version/resource/path&quot;<br />                        },<br />                        {<br />                            &quot;rel&quot;:&quot;canonical&quot;,<br />                            &quot;href&quot;:&quot;https://iotserver/assetMonitoring/clientapi/version/resource/path&quot;<br />                        }<br />                    ]<br />                },<br />                &quot;name&quot;:&quot;Floor plan name&quot;,<br />                &quot;description&quot;:&quot;A human friendly description&quot;,<br />                &quot;referencePoints&quot;:{<br />                    &quot;mapP1&quot;:&quot;Geographic coordinates of the first point&quot;,<br />                    &quot;mapP2&quot;:&quot;Geographic coordinates of the second point&quot;,<br />                    &quot;imageP2&quot;:&quot;Coordinates of the second point on image&quot;,<br />                    &quot;imageP1&quot;:&quot;Coordinates of the first point on image&quot;<br />                },<br />                &quot;id&quot;:&quot;50f66cb9252a-4902&quot;<br />            },<br />            &quot;tags&quot;:[<br />                &quot;tags_1&quot;,<br />                &quot;tags_2&quot;,<br />                &quot;tags_3&quot;<br />            ]<br />        },<br />        {<br />            &quot;parent&quot;:&quot;References to a place containing the place&quot;,<br />            &quot;places&quot;:{<br />                &quot;links&quot;:[<br />                    {<br />                        &quot;rel&quot;:&quot;self&quot;,<br />                        &quot;href&quot;:&quot;https://iotserver/assetMonitoring/clientapi/version/resource/path&quot;<br />                    },<br />                    {<br />                        &quot;rel&quot;:&quot;canonical&quot;,<br />                        &quot;href&quot;:&quot;https://iotserver/assetMonitoring/clientapi/version/resource/path&quot;<br />                    }<br />                ]<br />            },<br />            &quot;name&quot;:&quot;The place name &quot;,<br />            &quot;description&quot;:&quot;A human friendly description&quot;,<br />            &quot;geoFences&quot;:[<br />                &quot;geoFences_1&quot;,<br />                &quot;geoFences_2&quot;,<br />                &quot;geoFences_3&quot;<br />            ],<br />            &quot;id&quot;:&quot;1278619a3ade-6c2d&quot;,<br />            &quot;type&quot;:&quot;Type of the place, e.g. GEO_ROUTE, GEO_CIRCLE, GEO_POLYGON, GEO_POINT, CITY, STATE, COUNTRY etc. Can be null.&quot;,<br />            &quot;floorplan&quot;:{<br />                &quot;image&quot;:{<br />                    &quot;links&quot;:[<br />                        {<br />                            &quot;rel&quot;:&quot;self&quot;,<br />                            &quot;href&quot;:&quot;https://iotserver/assetMonitoring/clientapi/version/resource/path&quot;<br />                        },<br />                        {<br />                            &quot;rel&quot;:&quot;canonical&quot;,<br />                            &quot;href&quot;:&quot;https://iotserver/assetMonitoring/clientapi/version/resource/path&quot;<br />                        }<br />                    ]<br />                },<br />                &quot;name&quot;:&quot;Floor plan name&quot;,<br />                &quot;description&quot;:&quot;A human friendly description&quot;,<br />                &quot;referencePoints&quot;:{<br />                    &quot;mapP1&quot;:&quot;Geographic coordinates of the first point&quot;,<br />                    &quot;mapP2&quot;:&quot;Geographic coordinates of the second point&quot;,<br />                    &quot;imageP2&quot;:&quot;Coordinates of the second point on image&quot;,<br />                    &quot;imageP1&quot;:&quot;Coordinates of the first point on image&quot;<br />                },<br />                &quot;id&quot;:&quot;4ba25e20773e-2091&quot;<br />            },<br />            &quot;tags&quot;:[<br />                &quot;tags_1&quot;,<br />                &quot;tags_2&quot;,<br />                &quot;tags_3&quot;<br />            ]<br />        }<br />    ]<br />} </pre></div><br /><br /><br /><div class=&quot;section&quot;> <h3 class=&quot;title sectiontitle&quot;>Complete cURL Example</h3> <p class=&quot;p&quot;>The following example shows a complete cURL command that you can use to perform the described operation&#58</p> <pre class=&quot;pre&quot;>curl -X GET <br />&nbsp;&nbsp;&nbsp;-u &lt;username&gt;:&lt;password&gt; <br />&nbsp;&nbsp;&nbsp;-H &apos;Accept: application/json&apos; <br />&nbsp;&nbsp;&nbsp;https://iotserver/assetMonitoring/clientapi/v2/places </pre></div><div class=&quot;section&quot;> <br /><br /><br />Note that in the request, <code><strong>https://iotserver</strong></code> will be replaced by the name and port of your assigned IoT Cloud Service instance. The format of the Cloud Service instance is <code><strong>https://myinstance-myidentitydomain.iot.us.oraclecloud.com</strong></code> and the default port is 443.</div></div><div class=examples><!DOCTYPE html><div class=&quot;section&quot;> <pre class=&quot;pre&quot;>curl -X GET <br />&nbsp;&nbsp;&nbsp;-u &lt;username&gt;:&lt;password&gt; <br />&nbsp;&nbsp;&nbsp;-H &apos;Accept: application/json&apos; <br />&nbsp;&nbsp;&nbsp;https://iotserver/assetMonitoring/clientapi/v2/places </pre></div> <br /><div class=&quot;section&quot;> <h3 class=&quot;title sectiontitle&quot;>Example of Response Body</h3> <p class=&quot;p&quot;>The following example shows the content of the response body in JSON format&#58</p> <pre class=&quot;pre&quot;><br />{<br />    &quot;offset&quot;:0,<br />    &quot;count&quot;:2,<br />    &quot;limit&quot;:10,<br />    &quot;hasMore&quot;:false,<br />    &quot;links&quot;:[<br />        {<br />            &quot;rel&quot;:&quot;self&quot;,<br />            &quot;href&quot;:&quot;https://iotserver/assetMonitoring/clientapi/version/resource/path&quot;<br />        },<br />        {<br />            &quot;rel&quot;:&quot;canonical&quot;,<br />            &quot;href&quot;:&quot;https://iotserver/assetMonitoring/clientapi/version/resource/path&quot;<br />        }<br />    ],<br />    &quot;items&quot;:[<br />        {<br />            &quot;parent&quot;:&quot;References to a place containing the place&quot;,<br />            &quot;places&quot;:{<br />                &quot;links&quot;:[<br />                    {<br />                        &quot;rel&quot;:&quot;self&quot;,<br />                        &quot;href&quot;:&quot;https://iotserver/assetMonitoring/clientapi/version/resource/path&quot;<br />                    },<br />                    {<br />                        &quot;rel&quot;:&quot;canonical&quot;,<br />                        &quot;href&quot;:&quot;https://iotserver/assetMonitoring/clientapi/version/resource/path&quot;<br />                    }<br />                ]<br />            },<br />            &quot;name&quot;:&quot;The place name &quot;,<br />            &quot;description&quot;:&quot;A human friendly description&quot;,<br />            &quot;geoFences&quot;:[<br />                &quot;geoFences_1&quot;,<br />                &quot;geoFences_2&quot;,<br />                &quot;geoFences_3&quot;<br />            ],<br />            &quot;id&quot;:&quot;54c9743b201e-57cf&quot;,<br />            &quot;type&quot;:&quot;Type of the place, e.g. GEO_ROUTE, GEO_CIRCLE, GEO_POLYGON, GEO_POINT, CITY, STATE, COUNTRY etc. Can be null.&quot;,<br />            &quot;floorplan&quot;:{<br />                &quot;image&quot;:{<br />                    &quot;links&quot;:[<br />                        {<br />                            &quot;rel&quot;:&quot;self&quot;,<br />                            &quot;href&quot;:&quot;https://iotserver/assetMonitoring/clientapi/version/resource/path&quot;<br />                        },<br />                        {<br />                            &quot;rel&quot;:&quot;canonical&quot;,<br />                            &quot;href&quot;:&quot;https://iotserver/assetMonitoring/clientapi/version/resource/path&quot;<br />                        }<br />                    ]<br />                },<br />                &quot;name&quot;:&quot;Floor plan name&quot;,<br />                &quot;description&quot;:&quot;A human friendly description&quot;,<br />                &quot;referencePoints&quot;:{<br />                    &quot;mapP1&quot;:&quot;Geographic coordinates of the first point&quot;,<br />                    &quot;mapP2&quot;:&quot;Geographic coordinates of the second point&quot;,<br />                    &quot;imageP2&quot;:&quot;Coordinates of the second point on image&quot;,<br />                    &quot;imageP1&quot;:&quot;Coordinates of the first point on image&quot;<br />                },<br />                &quot;id&quot;:&quot;1196c3c1e6b-214&quot;<br />            },<br />            &quot;tags&quot;:[<br />                &quot;tags_1&quot;,<br />                &quot;tags_2&quot;,<br />                &quot;tags_3&quot;<br />            ]<br />        },<br />        {<br />            &quot;parent&quot;:&quot;References to a place containing the place&quot;,<br />            &quot;places&quot;:{<br />                &quot;links&quot;:[<br />                    {<br />                        &quot;rel&quot;:&quot;self&quot;,<br />                        &quot;href&quot;:&quot;https://iotserver/assetMonitoring/clientapi/version/resource/path&quot;<br />                    },<br />                    {<br />                        &quot;rel&quot;:&quot;canonical&quot;,<br />                        &quot;href&quot;:&quot;https://iotserver/assetMonitoring/clientapi/version/resource/path&quot;<br />                    }<br />                ]<br />            },<br />            &quot;name&quot;:&quot;The place name &quot;,<br />            &quot;description&quot;:&quot;A human friendly description&quot;,<br />            &quot;geoFences&quot;:[<br />                &quot;geoFences_1&quot;,<br />                &quot;geoFences_2&quot;,<br />                &quot;geoFences_3&quot;<br />            ],<br />            &quot;id&quot;:&quot;7bfcb62eb5-a36&quot;,<br />            &quot;type&quot;:&quot;Type of the place, e.g. GEO_ROUTE, GEO_CIRCLE, GEO_POLYGON, GEO_POINT, CITY, STATE, COUNTRY etc. Can be null.&quot;,<br />            &quot;floorplan&quot;:{<br />                &quot;image&quot;:{<br />                    &quot;links&quot;:[<br />                        {<br />                            &quot;rel&quot;:&quot;self&quot;,<br />                            &quot;href&quot;:&quot;https://iotserver/assetMonitoring/clientapi/version/resource/path&quot;<br />                        },<br />                        {<br />                            &quot;rel&quot;:&quot;canonical&quot;,<br />                            &quot;href&quot;:&quot;https://iotserver/assetMonitoring/clientapi/version/resource/path&quot;<br />                        }<br />                    ]<br />                },<br />                &quot;name&quot;:&quot;Floor plan name&quot;,<br />                &quot;description&quot;:&quot;A human friendly description&quot;,<br />                &quot;referencePoints&quot;:{<br />                    &quot;mapP1&quot;:&quot;Geographic coordinates of the first point&quot;,<br />                    &quot;mapP2&quot;:&quot;Geographic coordinates of the second point&quot;,<br />                    &quot;imageP2&quot;:&quot;Coordinates of the second point on image&quot;,<br />                    &quot;imageP1&quot;:&quot;Coordinates of the first point on image&quot;<br />                },<br />                &quot;id&quot;:&quot;bce203d9b9-7390&quot;<br />            },<br />            &quot;tags&quot;:[<br />                &quot;tags_1&quot;,<br />                &quot;tags_2&quot;,<br />                &quot;tags_3&quot;<br />            ]<br />        }<br />    ]<br />} </pre></div><br /><br /><br /><div class=&quot;section&quot;> <h3 class=&quot;title sectiontitle&quot;>Complete cURL Example</h3> <p class=&quot;p&quot;>The following example shows a complete cURL command that you can use to perform the described operation&#58</p> <pre class=&quot;pre&quot;>curl -X GET <br />&nbsp;&nbsp;&nbsp;-u &lt;username&gt;:&lt;password&gt; <br />&nbsp;&nbsp;&nbsp;-H &apos;Accept: application/json&apos; <br />&nbsp;&nbsp;&nbsp;https://iotserver/assetMonitoring/clientapi/v2/places </pre></div><div class=&quot;section&quot;> <br /><br /><br />Note that in the request, <code><strong>https://iotserver</strong></code> will be replaced by the name and port of your assigned IoT Cloud Service instance. The format of the Cloud Service instance is <code><strong>https://myinstance-myidentitydomain.iot.us.oraclecloud.com</strong></code> and the default port is 443.</div></div>"
+      responses: 
+        "200": 
+          description: Successfully processed.
+        "401": 
+          description: Unauthorized. The request requires user authentication.
+        "406": 
+          description: Request Not Acceptable. The resource identified by the request is only capable of generating response entities which have content characteristics not acceptable according to the accept headers sent in the request.
+      parameters: 
+      - in: query
+        name: orderBy
+        description: Ordering criteria for the returned Places list
+        type: string
+        required: false
+      - in: query
+        name: q
+        description: Query to filter Places on the server (For more information on mongoDB query parameters refer to <a href='./MongoDBQuery.html' target='_blank'>Using mongoDB Query Syntax</a>.)
+        type: string
+        required: false
+      - in: query
+        name: expand
+        description: The list of fields to be expanded in the result. Use 'all' to expand all expandable fields in result.
+        type: string
+        required: false
+      - in: query
+        name: fields
+        description: The comma-separated list of fields to be shown in response. By default all response object fields will be present.
+        type: string
+        required: false
+      - in: query
+        name: offset
+        description: The number that the first record of results is starting from.
+        type: integer
+        required: false
+      - in: query
+        name: limit
+        description: The maximum number of entries to return to the end user.
+        type: integer
+        required: false
+      - in: query
+        name: totalResults
+        description: The total number of results suiting the request.
+        type: boolean
+        required: false
+      - in: query
+        name: since
+        description: The starting point of the desired time interval, in milliseconds. The default is 0.
+        type: integer
+        required: false
+      - in: query
+        name: until
+        description: The finishing point of the desired time interval, in milliseconds. The default is 0.
+        type: integer
+        required: false
+
+
+ 
+schemes: 
+- https
+tags: 
+- name: Places Management
+  description: The Places Management API lets you  manage and maintain the places in your Oracle IoT Asset Monitoring Cloud Service instance. A place is a permitted location for the assets that you monitor in the application.
+definitions: 
+  Place_create: 
+    type: object
+    required: 
+    - id
+    - name
+    - type
+    - description
+    - geoFences
+    - parent
+    - tags
+    - children
+    properties: 
+      parent: 
+        description: References to a place containing the place
+        type: string
+      children: 
+        description: Property description was not set
+        type: array
+      name: 
+        description: "The place name "
+        type: string
+      description: 
+        description: A human friendly description
+        type: string
+      geoFences: 
+        description: References (0..N) to IoT geo fences related to the place
+        type: array
+        items: 
+          type: string
+      id: 
+        description: Place unique id
+        type: string
+      type: 
+        description: Type of the place, e.g. GEO_ROUTE, GEO_CIRCLE, GEO_POLYGON, GEO_POINT, CITY, STATE, COUNTRY etc. Can be null.
+        type: string
+      tags: 
+        description: User defined tags for the place. Can be used by users for quick search, logical grouping of places etc.
+        type: array
+        items: 
+          type: string
+  FloorPlanImpl_update: 
+    type: object
+    properties: 
+      imageFileName: 
+        description: Property description was not set
+        type: string
+      name: 
+        description: Floor plan name
+        type: string
+      description: 
+        description: A human friendly description
+        type: string
+      referencePoints: 
+        $ref: "#/definitions/FloorPlanReferencePoints_update"
+  PlaceImpl_create: 
+    type: object
+    required: 
+    - id
+    - name
+    - type
+    - description
+    - geoFences
+    - parent
+    - tags
+    - children
+    properties: 
+      parent: 
+        description: References to a place containing the place
+        type: string
+      children: 
+        description: Property description was not set
+        type: array
+        items: 
+          $ref: "#/definitions/Place_create"
+      name: 
+        description: "The place name "
+        type: string
+      description: 
+        description: A human friendly description
+        type: string
+      geoFences: 
+        description: References (0..N) to IoT geo fences related to the place
+        type: array
+        items: 
+          type: string
+      id: 
+        description: Place unique id
+        type: string
+      type: 
+        description: Type of the place, e.g. GEO_ROUTE, GEO_CIRCLE, GEO_POLYGON, GEO_POINT, CITY, STATE, COUNTRY etc. Can be null.
+        type: string
+      tags: 
+        description: User defined tags for the place. Can be used by users for quick search, logical grouping of places etc.
+        type: array
+        items: 
+          type: string
+  FloorPlanReferencePoints_create: 
+    type: object
+    required: 
+    - imageP1
+    - imageP2
+    - mapP1
+    - mapP2
+    properties: 
+      mapP1: 
+        description: Geographic coordinates of the first point
+        type: string
+      mapP2: 
+        description: Geographic coordinates of the second point
+        type: string
+      imageP2: 
+        description: Coordinates of the second point on image
+        type: string
+      imageP1: 
+        description: Coordinates of the first point on image
+        type: string
+  FloorPlanReferencePoints_update: 
+    type: object
+    properties: 
+      mapP1: 
+        description: Geographic coordinates of the first point
+        type: string
+      mapP2: 
+        description: Geographic coordinates of the second point
+        type: string
+      imageP2: 
+        description: Coordinates of the second point on image
+        type: string
+      imageP1: 
+        description: Coordinates of the first point on image
+        type: string
+  PlaceImpl_update: 
+    type: object
+    properties: 
+      parent: 
+        description: References to a place containing the place
+        type: string
+      children: 
+        description: Property description was not set
+        type: array
+        items: 
+          $ref: "#/definitions/Place_update"
+      name: 
+        description: "The place name "
+        type: string
+      description: 
+        description: A human friendly description
+        type: string
+      geoFences: 
+        description: References (0..N) to IoT geo fences related to the place
+        type: array
+        items: 
+          type: string
+      id: 
+        description: Place unique id
+        type: string
+      type: 
+        description: Type of the place, e.g. GEO_ROUTE, GEO_CIRCLE, GEO_POLYGON, GEO_POINT, CITY, STATE, COUNTRY etc. Can be null.
+        type: string
+      tags: 
+        description: User defined tags for the place. Can be used by users for quick search, logical grouping of places etc.
+        type: array
+        items: 
+          type: string
+  FloorPlanImpl_receive: 
+    type: object
+    required: 
+    - id
+    - name
+    - description
+    - image
+    - referencePoints
+    properties: 
+      image: 
+        description: Base64 encoded string corresponding to the floor plan image
+        type: object
+        properties: 
+          links: 
+            description: The set of API navigation links.
+            type: array
+            items: 
+              type: object
+              properties: 
+                rel: 
+                  description: Relation type
+                  type: string
+                  example: canonical
+                href: 
+                  description: The target resource URI
+                  type: string
+                  example: https://iotserver/iot/api/vX/some/API/path
+      name: 
+        description: Floor plan name
+        type: string
+      description: 
+        description: A human friendly description
+        type: string
+      referencePoints: 
+        $ref: "#/definitions/FloorPlanReferencePoints_receive"
+      id: 
+        description: Floor plan unique id
+        type: string
+  Place_update: 
+    type: object
+    properties: 
+      parent: 
+        description: References to a place containing the place
+        type: string
+      children: 
+        description: Property description was not set
+        type: array
+        items: 
+          $ref: "#/definitions/Place_update"
+      name: 
+        description: "The place name "
+        type: string
+      description: 
+        description: A human friendly description
+        type: string
+      geoFences: 
+        description: References (0..N) to IoT geo fences related to the place
+        type: array
+        items: 
+          type: string
+      id: 
+        description: Place unique id
+        type: string
+      type: 
+        description: Type of the place, e.g. GEO_ROUTE, GEO_CIRCLE, GEO_POLYGON, GEO_POINT, CITY, STATE, COUNTRY etc. Can be null.
+        type: string
+      tags: 
+        description: User defined tags for the place. Can be used by users for quick search, logical grouping of places etc.
+        type: array
+        items: 
+          type: string
+  FloorPlanReferencePoints_receive: 
+    type: object
+    required: 
+    - imageP1
+    - imageP2
+    - mapP1
+    - mapP2
+    properties: 
+      mapP1: 
+        description: Geographic coordinates of the first point
+        type: string
+      mapP2: 
+        description: Geographic coordinates of the second point
+        type: string
+      imageP2: 
+        description: Coordinates of the second point on image
+        type: string
+      imageP1: 
+        description: Coordinates of the first point on image
+        type: string
+  AssetRef_receive_list: 
+    type: object
+    required: 
+    - items
+    - links
+    - limit
+    - offset
+    - count
+    - hasMore
+    properties: 
+      offset: 
+        format: int32
+        type: integer
+      count: 
+        format: int32
+        type: integer
+      limit: 
+        format: int32
+        type: integer
+      hasMore: 
+        type: boolean
+      links: 
+        description: The set of API navigation links.
+        type: array
+        items: 
+          type: object
+          properties: 
+            rel: 
+              description: Relation type
+              type: string
+              example: canonical
+            href: 
+              description: The target resource URI
+              type: string
+              example: https://iotserver/iot/api/vX/some/API/path
+      items: 
+        type: array
+        items: 
+          type: object
+          required: 
+          - name
+          properties: 
+            name: 
+              description: "The asset name "
+              type: string
+  FloorPlan_receive: 
+    type: object
+    required: 
+    - id
+    - name
+    - description
+    - image
+    - referencePoints
+    properties: 
+      image: 
+        description: Base64 encoded string corresponding to the floor plan image
+        type: object
+        properties: 
+          links: 
+            description: The set of API navigation links.
+            type: array
+            items: 
+              type: object
+              properties: 
+                rel: 
+                  description: Relation type
+                  type: string
+                  example: canonical
+                href: 
+                  description: The target resource URI
+                  type: string
+                  example: https://iotserver/iot/api/vX/some/API/path
+      name: 
+        description: Floor plan name
+        type: string
+      description: 
+        description: A human friendly description
+        type: string
+      referencePoints: 
+        $ref: "#/definitions/FloorPlanReferencePoints_receive"
+      id: 
+        description: Floor plan unique id
+        type: string
+  RecordsCount_receive: 
+    type: object
+    required: 
+    - count
+    properties: 
+      count: 
+        description: Requested objects count
+        type: integer
+  PlaceImpl_receive: 
+    type: object
+    required: 
+    - id
+    - name
+    - type
+    - description
+    - geoFences
+    - parent
+    - places
+    - tags
+    - floorplan
+    properties: 
+      parent: 
+        description: References to a place containing the place
+        type: string
+      places: 
+        description: References (0..N) to places contained in the place
+        type: object
+        properties: 
+          links: 
+            description: The set of API navigation links.
+            type: array
+            items: 
+              type: object
+              properties: 
+                rel: 
+                  description: Relation type
+                  type: string
+                  example: canonical
+                href: 
+                  description: The target resource URI
+                  type: string
+                  example: https://iotserver/iot/api/vX/some/API/path
+      name: 
+        description: "The place name "
+        type: string
+      description: 
+        description: A human friendly description
+        type: string
+      geoFences: 
+        description: References (0..N) to IoT geo fences related to the place
+        type: array
+        items: 
+          type: string
+      id: 
+        description: Place unique id
+        type: string
+      type: 
+        description: Type of the place, e.g. GEO_ROUTE, GEO_CIRCLE, GEO_POLYGON, GEO_POINT, CITY, STATE, COUNTRY etc. Can be null.
+        type: string
+      floorplan: 
+        $ref: "#/definitions/FloorPlan_receive"
+      tags: 
+        description: User defined tags for the place. Can be used by users for quick search, logical grouping of places etc.
+        type: array
+        items: 
+          type: string
+  FloorPlanImpl_create: 
+    type: object
+    required: 
+    - name
+    - referencePoints
+    - imageFileName
+    properties: 
+      imageFileName: 
+        description: Property description was not set
+        type: string
+      name: 
+        description: Floor plan name
+        type: string
+      description: 
+        description: A human friendly description
+        type: string
+      referencePoints: 
+        $ref: "#/definitions/FloorPlanReferencePoints_create"
+  PlaceImpl_receive_list: 
+    type: object
+    required: 
+    - items
+    - links
+    - limit
+    - offset
+    - count
+    - hasMore
+    properties: 
+      offset: 
+        format: int32
+        type: integer
+      count: 
+        format: int32
+        type: integer
+      limit: 
+        format: int32
+        type: integer
+      hasMore: 
+        type: boolean
+      links: 
+        description: The set of API navigation links.
+        type: array
+        items: 
+          type: object
+          properties: 
+            rel: 
+              description: Relation type
+              type: string
+              example: canonical
+            href: 
+              description: The target resource URI
+              type: string
+              example: https://iotserver/iot/api/vX/some/API/path
+      items: 
+        type: array
+        items: 
+          type: object
+          required: 
+          - id
+          - name
+          - type
+          - description
+          - geoFences
+          - parent
+          - places
+          - tags
+          - floorplan
+          properties: 
+            parent: 
+              description: References to a place containing the place
+              type: string
+            places: 
+              description: References (0..N) to places contained in the place
+              type: object
+              properties: 
+                links: 
+                  description: The set of API navigation links.
+                  type: array
+                  items: 
+                    type: object
+                    properties: 
+                      rel: 
+                        description: Relation type
+                        type: string
+                        example: canonical
+                      href: 
+                        description: The target resource URI
+                        type: string
+                        example: https://iotserver/iot/api/vX/some/API/path
+            name: 
+              description: "The place name "
+              type: string
+            description: 
+              description: A human friendly description
+              type: string
+            geoFences: 
+              description: References (0..N) to IoT geo fences related to the place
+              type: array
+              items: 
+                type: string
+            id: 
+              description: Place unique id
+              type: string
+            type: 
+              description: Type of the place, e.g. GEO_ROUTE, GEO_CIRCLE, GEO_POLYGON, GEO_POINT, CITY, STATE, COUNTRY etc. Can be null.
+              type: string
+            floorplan: 
+              $ref: "#/definitions/FloorPlan_receive"
+            tags: 
+              description: User defined tags for the place. Can be used by users for quick search, logical grouping of places etc.
+              type: array
+              items: 
+                type: string
+swagger: "2.0"
+info: 
+  description: This category contains a set of resources along with their corresponding models required for Oracle IoT Cloud Service places management
+  title: Places Management
+  version: 1.0.0
